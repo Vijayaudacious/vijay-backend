@@ -1,13 +1,28 @@
-// require("dotenv").config({ path: "./env" });   // first  formate
-
+import { app } from "./app.js";
 import connectDB from "./db/index.js";
 import dotenv from "dotenv";
 
 dotenv.config({
-  path: "./env", // second formate this is right formate
+  path: "./env",
 });
 
-connectDB();
+connectDB()
+  .then(() => {
+    app.listen(process.env.PORT || 8000, () => {
+      console.log(`server is running at port: ${process.env.PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log("MONGODB conteaction FAILD !!!", err);
+  });
+
+// require("dotenv").config({ path: "./env" });   // first  formate
+// import connectDB from "./db/index.js";
+// import dotenv from "dotenv";
+
+// dotenv.config({
+//   path: "./env", // second formate this is right formate
+// });
 
 //data base conaction-----------------------
 // import mongoose from "mongoose";
